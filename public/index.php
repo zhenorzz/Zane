@@ -5,4 +5,5 @@ $loader->register();
 $loader->addNamespace('zane', '../zane');
 
 $tpl = new zane\Template();
-var_dump($tpl->getConfig());
+$tpl->assign('data','hello world');
+$tpl->show('member');
