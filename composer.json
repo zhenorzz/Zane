@@ -1,0 +1,23 @@
+{
+    "name": "zane",
+    "description": "the new zane framework",
+    "type": "project",
+    "keywords": [
+        "framework",
+        "zane",
+        "ORM"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "zane",
+            "email": "zhenorzz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
