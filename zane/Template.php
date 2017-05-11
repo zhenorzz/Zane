@@ -9,7 +9,7 @@ class Template
 		'suffix' => '.html',
 		'templateDir' => '../template/',
 		'compiledir' => '../runtime/cache/',
-		'cache_htm' => true,
+		'cache_htm' => false,
 		'suffix_cache' => '.html',
 		'cache_time' => 7200,
 		'php_turn' => true,
@@ -140,8 +140,9 @@ class Template
 
 	public function debug_info()
 	{
-		echo PHP_EOL.'----debug info----'.PHP_EOL;
-		echo '程序运行日期：'.date('Y-m-d h:i:s').PHP_EOL;
+		date_default_timezone_set('PRC');
+		echo PHP_EOL.'----debug info----',PHP_EOL;
+		echo '程序运行日期：'.date('Y-m-d H:i:s').PHP_EOL;
 		echo '是否使用静态缓存：'.$this->debug['cached'].PHP_EOL;
 		echo '模版引擎参数：'.var_dump($this->getConfig());
 	}

@@ -24,10 +24,28 @@ class Compile
 			$this->T_P[] = "#<\?(=|php|)(.+?)\?>#is";
 			$this->T_R[] = "&lt;?\\1\\2?&gt;"; 
 		} 
+		//$this->value
 		$this->T_P[] = "#\{\\$([a-zA-z_\x7f-\xff][a-zA-z0-9_\x7f-\xff]*)\}#";
 		$this->T_R[] = "<?php echo \$this->value['\\1'];?>"; 
+		//foreach
+		$this->T_P[] = "#\{(foreach) \\$([a-zA-z_\x7f-\xff][a-zA-z0-9_\x7f-\xff]*)\}#i";
+		$this->T_P[] = "#\{([K|V])\}#";
+		$this->T_P[] = "#\{\/(foreach|if)\}#i";
+		$this->T_R[] = "<?php foreach((array)\$this->value['\\2'] as \$K => \$V) {?>";
+		$this->T_R[] = "<?php echo \$\\1;?>";
+		$this->T_R[] = "<?php }?>";
 
-		
+		//if
+		$this->T_P[] = "#\{if (.*?)\}#i";
+		$this->T_P[] = "#\{elseif (.*?)\}#i";
+		$this->T_P[] = "#\{else\}#i";
+		$this->T_R[] = "<?php if(\\1){?>";
+		$this->T_R[] = "<?php }elseif(\\1){?>";
+		$this->T_R[] = "<?php }else{?>";
+
+		//注释
+		$this->T_P[] = "#\{(\#|\*)(.*?)(\#|\*)\}#i";
+		$this->T_R[] = '';
 	}
 
 	public function compile()
