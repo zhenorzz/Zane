@@ -63,6 +63,10 @@ class Autoloader
     public function register()
     {
         spl_autoload_register(array($this, 'loadClass'));
+        // Composer自动加载支持
+        if (is_dir('../vendor/composer')) {
+           require_once '../vendor/autoload.php';
+        }
     }
 
     /**

@@ -4,6 +4,13 @@ $loader = new \zane\Autoloader;
 $loader->register();
 $loader->addNamespace('zane', '../zane');
 
+$whoops = new \Whoops\Run;
+$PrettyPageHandler = new \Whoops\Handler\PrettyPageHandler();
+// $PrettyPageHandler->setPageTitle('nihao');
+$whoops->pushHandler($PrettyPageHandler);
+$whoops->register();
+
+
 $tpl = new zane\Template();
 $tpl->assign('data','hello world');
 $tpl->assign('person','zane');
