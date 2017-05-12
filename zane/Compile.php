@@ -2,7 +2,7 @@
 namespace zane;
 
 /**
-* 
+* 模版编译
 */
 class Compile
 {

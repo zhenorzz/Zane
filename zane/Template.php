@@ -1,19 +1,18 @@
 <?php
 namespace zane;
 /**
-* 		
+*模板生成
 */
 class Template
 {
 	private $arrayConfig = [
 		'suffix' => '.html',
 		'templateDir' => '../template/',
-		'compiledir' => '../runtime/cache/',
+		'compileDir' => '../runtime/cache/',
 		'cache_htm' => false,
 		'suffix_cache' => '.html',
 		'cache_time' => 7200,
 		'php_turn' => true,
-
 		'cache_control' => 'control.dat',
 		'debug' => false,
 	];
@@ -32,15 +31,12 @@ class Template
 
 	public function __construct(array $arrayConfig = [])
 	{
-		$this->debug['begin'] = microtime(true);
 		$this->arrayConfig = $arrayConfig + $this->arrayConfig;
-
 		if (!is_dir($this->arrayConfig['templateDir'])) {
-			exit("template dir isn't found");
+			throw new Exception("template dir isn't found");
 		}
-
-		if (!is_dir($this->arrayConfig['compiledir'])) {
-			mkdir($this->arrayConfig['compiledir'], 0770, true);
+		if (!is_dir($this->arrayConfig['compileDir'])) {
+			mkdir($this->arrayConfig['compileDir'], 0770, true);
 		}
 	}
 
@@ -88,7 +84,7 @@ class Template
 	public function reCache($file)
 	{
 		$flag = false;
-		$cacheFile = $this->arrayConfig['compiledir'] . md5($file) . '.html';
+		$cacheFile = $this->arrayConfig['compileDir'] . md5($file) . '.html';
 		if ($this->arrayConfig['cache_htm'] === true) {
 			$timeFlag = (time() - filemtime($cacheFile)) < $this->arrayConfig['cache_time'] ? true : false;
 			if (is_file($cacheFile) && filesize($cacheFile) > 1 && $timeFlag) {
@@ -105,12 +101,11 @@ class Template
 		$this->file = $file;
 		if (!is_file($this->path())) {
 			var_dump(is_file($this->path()));
-			exit('找不到对应的模版');
+			throw new Exception("template view isn't found");
 		}
-		$compileFile = $this->arrayConfig['compiledir'] . '/' . md5($file) . '.php';
-		$cacheFile = $this->arrayConfig['compiledir'] . '/' . md5($file) . '.html';
+		$compileFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.php';
+		$cacheFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.html';
 		if ($this->reCache($file) === false) {
-			$this->debug['cached'] = 'false';
 			$this->compileTool = new Compile($this->path(), $compileFile, $this->arrayConfig);
 			if ($this->needCache()) {
 				ob_start();
@@ -130,32 +125,17 @@ class Template
 			}
 		} else {
 			readfile($cacheFile);
-			$this->debug['cached'] = 'true';
 		}
-
-		$this->debug['spend'] = microtime(true) - $this->debug['begin'];
-		$this->debug['count'] = count($this->value);
-		$this->debug_info(); 
-	}
-
-	public function debug_info()
-	{
-		date_default_timezone_set('PRC');
-		echo PHP_EOL.'----debug info----',PHP_EOL;
-		echo '程序运行日期：'.date('Y-m-d H:i:s').PHP_EOL;
-		echo '是否使用静态缓存：'.$this->debug['cached'].PHP_EOL;
-		echo '模版引擎参数：'.var_dump($this->getConfig());
 	}
 
 	public function clean($path=null)
 	{
 		if ($path === null) {
-			$path = $this->arrayConfig['compiledir'];
+			$path = $this->arrayConfig['compileDir'];
 			$path = glob($path.'*'.$this->arrayConfig['suffix_cache']);
 		} else {
-			$path = $this->arrayConfig['compiledir'].md5($path).'.html';
+			$path = $this->arrayConfig['compileDir'].md5($path).'.html';
 		}
-
 		foreach ((array)$path as $file) {
 			unlink($file);
 		}
