@@ -8,13 +8,13 @@ class Template
 	private $arrayConfig = [
 		'suffix' => '.html',
 		'templateDir' => '../template/',
-		'compileDir' => '../runtime/cache/',
+		'compileDir' => CACHE_PATH,
 		'cache_htm' => false,
 		'suffix_cache' => '.html',
 		'cache_time' => 7200,
 		'php_turn' => true,
 		'cache_control' => 'control.dat',
-		'debug' => false,
+		'debug' => true,
 	];
 
 	private static $instance = null;
@@ -112,7 +112,7 @@ class Template
 			}
 			extract($this->value);
 			
-			if (!is_file($compileFile) || filemtime($compileFile) < filemtime($this->path())) {
+			if (!is_file($compileFile) || filemtime($compileFile) < filemtime($this->path()) || $this->arrayConfig['debug']) {
 				$this->compileTool->value = $this->value;
 				$this->compileTool->compile();
 				include $compileFile;

@@ -1,5 +1,15 @@
 <?php
 require  '../zane/Autoloader.php';
+date_default_timezone_set('PRC');
+define('EXT', '.php');
+define('DS', DIRECTORY_SEPARATOR);
+defined('ZANE_PATH') or define('ZANE_PATH', __DIR__ . DS);
+defined('APP_PATH') or define('APP_PATH', dirname($_SERVER['SCRIPT_FILENAME']) . DS);
+defined('ROOT_PATH') or define('ROOT_PATH', dirname(realpath(APP_PATH)) . DS);
+defined('VENDOR_PATH') or define('VENDOR_PATH', ROOT_PATH . 'vendor' . DS);
+defined('RUNTIME_PATH') or define('RUNTIME_PATH', ROOT_PATH . 'runtime' . DS);
+defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'cache' . DS);
+
 $loader = new \zane\Autoloader;
 $loader->addNamespace('zane', '../zane');
 $loader->register();
