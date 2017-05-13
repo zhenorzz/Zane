@@ -7,11 +7,11 @@ class Index
     {
     	$manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
 
-		$bulk = new \MongoDB\Driver\BulkWrite;
-		$bulk->insert(['x' => 1]);
-		$bulk->insert(['x' => 2]);
-		$bulk->insert(['x' => 3]);
-		$manager->executeBulkWrite('db.collection', $bulk);
+		// $bulk = new \MongoDB\Driver\BulkWrite;
+		// $bulk->insert(['x' => 1]);
+		// $bulk->insert(['x' => 2]);
+		// $bulk->insert(['x' => 3]);
+		// $manager->executeBulkWrite('db.collection', $bulk);
 
 		$filter = ['x' => ['$gt' => 1]];
 		$options = [
