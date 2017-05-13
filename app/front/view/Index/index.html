@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{$data},{$person}
+	<ul> 
+		{foreach $b}
+			<li>{V}</li>
+		{/foreach}
+	</ul>
+	{if $data=='abc'}
+		我是abc
+	{elseif $data=='def'}
+		我是def
+	{else}
+		我就是我，{$data}
+	{/if}
+	{#注释不会出现在编译后的PHP代码中#}
+</body>
+</html>

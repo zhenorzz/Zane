@@ -63,7 +63,6 @@ class Compile
 	public function c_staticFile()
 	{
 		$this->content = preg_replace('#\{\!(.*?)\!\}#', '<script src=\\1'.'?t='.time().'></script>', $this->content);
-
 	}
 
 	public function __set($name, $value)

@@ -19,6 +19,9 @@ class App
 		$module = $file[1];
 		$controller = $file[2];
 		$action = explode('.', $file[3])[0];
+		define('MODULE',$module);
+		define('CONTROLLER',$controller);
+		define('ACTION',$action);
 		$class = '\\app\\' . $module . '\\controller\\' . $controller;
 		$view = new $class();
 		$view->$action();

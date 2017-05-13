@@ -7,7 +7,7 @@ class Template
 {
 	private $arrayConfig = [
 		'suffix' => '.html',
-		'templateDir' => '../template/',
+		'templateDir' => '',
 		'compileDir' => CACHE_PATH,
 		'cache_htm' => false,
 		'suffix_cache' => '.html',
@@ -32,8 +32,9 @@ class Template
 	public function __construct(array $arrayConfig = [])
 	{
 		$this->arrayConfig = $arrayConfig + $this->arrayConfig;
+		$this->arrayConfig['templateDir'] = APP_PATH . MODULE . '/view/' . CONTROLLER . DS;
 		if (!is_dir($this->arrayConfig['templateDir'])) {
-			throw new Exception("template dir isn't found");
+			throw new \Exception("template dir isn't found");
 		}
 		if (!is_dir($this->arrayConfig['compileDir'])) {
 			mkdir($this->arrayConfig['compileDir'], 0770, true);
@@ -96,12 +97,15 @@ class Template
 		return $flag;
 	}
 
-	public function show($file)
+	public function show($file = null)
 	{
-		$this->file = $file;
+		if (isset($file)) {
+			$this->file = $file;
+		} else {
+			$this->file = ACTION;
+		}
 		if (!is_file($this->path())) {
-			var_dump(is_file($this->path()));
-			throw new Exception("template view isn't found");
+			throw new \Exception("template view isn't found");
 		}
 		$compileFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.php';
 		$cacheFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.html';
