@@ -1,0 +1,27 @@
+<?php
+namespace zane;
+
+/**
+* 	
+*/
+class App
+{
+	
+	public function __construct()
+	{
+		
+	}
+
+	public static function run()
+	{
+		$URI = $_SERVER['REQUEST_URI'];
+		$file = explode('/', $URI);
+		$module = $file[1];
+		$controller = $file[2];
+		$action = explode('.', $file[3])[0];
+		$class = '\\app\\' . $module . '\\controller\\' . $controller;
+		$view = new $class();
+		$view->$action();
+	}
+
+}
