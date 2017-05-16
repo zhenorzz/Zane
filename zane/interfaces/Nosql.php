@@ -16,5 +16,5 @@ interface Nosql
 
 	public function save(array $data,array $options=null);
 
-	public function delete();
+	public function delete(array $options);
 }  

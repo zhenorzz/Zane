@@ -8,8 +8,10 @@ class Mongodb implements interfaces\Nosql
 	private $manager; 
 	private $db;
 	private $table;
-	private $where;
+	private $where = [];
 	private $order;
+	private static $bulk = null;
+
 	public function __construct($db = null)
 	{
 		$this->manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
@@ -17,6 +19,15 @@ class Mongodb implements interfaces\Nosql
 			$this->db = $db;
 		}
 	}
+
+	private static function getBulk()
+	{
+		if (is_null(self::$bulk)) {
+			self::$bulk = new \MongoDB\Driver\BulkWrite;
+		}
+		return self::$bulk;
+	}
+
 	public function db($db)
 	{
 		$this->db = $db;
@@ -48,22 +59,25 @@ class Mongodb implements interfaces\Nosql
 	}
 	public function add(array $data)
 	{
-		$bulk = new \MongoDB\Driver\BulkWrite;
+		$bulk = self::getBulk();
 		$bulk->insert($data);
 		$writeResult = $this->manager->executeBulkWrite($this->db.'.'.$this->table, $bulk);
 		return $writeResult->getInsertedCount();
 	}
 
-	public function save(array $data,array $options=null)
+	public function save(array $data,array $options=[])
 	{
-		$bulk = new \MongoDB\Driver\BulkWrite;
-		$bulk->update($this->where,$data,["multi"=>false,"upsert" => false]);
+		$bulk = self::getBulk();
+		$bulk->update($this->where, $data, $options);
 		$result = $this->manager->executeBulkWrite($this->db.'.'.$this->table, $bulk);
 		return $result->getMatchedCount();
 	}
 
-	public function delete()
+	public function delete(array $options=[])
 	{
-		# code...
+		$bulk = self::getBulk();
+		$bulk->delete($this->where, $options);
+		$deleteResult = $this->manager->executeBulkWrite($this->db.'.'.$this->table, $bulk);
+		return $deleteResult->getMatchedCount();
 	}
 }

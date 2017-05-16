@@ -26,7 +26,8 @@ class Index
 
     	$mongodb = new Mongodb('db');
     	//$result = $mongodb->table('collection')->add(['x' => 7]);
-    	$result = $mongodb->table('collection')->where(['x' => 7])->save(['x' => 2]);
+    	//$result = $mongodb->table('collection')->where(['x' => 7])->save(['x' => 2]);
+    	$result = $mongodb->table('collection')->where(['x' => 2])->delete(['limit'=>1]);
     	var_dump($result);
     	$cursor = $mongodb->table('collection')->where($filter)->order($options)->select();
 
