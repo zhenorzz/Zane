@@ -1,17 +1,19 @@
 <?php
 namespace app\front\controller;
 use zane;
+use zane\Mongodb;
+
 class Index
 {
     public function index()
     {
-    	$manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
+
+
+  //   	$manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
 
 		// $bulk = new \MongoDB\Driver\BulkWrite;
-		// $bulk->insert(['x' => 1]);
-		// $bulk->insert(['x' => 2]);
-		// $bulk->insert(['x' => 3]);
-		// $manager->executeBulkWrite('db.collection', $bulk);
+		// $bulk->insert(['x' => 6]);
+		// $manager->executeBulkWrite('ascs.collection', $bulk);
 
 		$filter = ['x' => ['$gt' => 1]];
 		$options = [
@@ -19,15 +21,19 @@ class Index
 		    'sort' => ['x' => -1],
 		];
 
-		$query = new \MongoDB\Driver\Query($filter, $options);
-		$cursor = $manager->executeQuery('db.collection', $query);
+		// $query = new \MongoDB\Driver\Query($filter, $options);
+		// $cursor = $manager->executeQuery('ascs.collection', $query);
+
+    	$mongodb = new Mongodb('db');
+    	//$result = $mongodb->table('collection')->add(['x' => 7]);
+    	$result = $mongodb->table('collection')->where(['x' => 7])->save(['x' => 2]);
+    	var_dump($result);
+    	$cursor = $mongodb->table('collection')->where($filter)->order($options)->select();
 
 		foreach ($cursor as $document) {
 		    var_dump($document);
 		}
 		die;
-
-		
         $arry = [
            ['id'=>2,'title'=>'t2'],
            ['id'=>null,'title'=>'t3'],
