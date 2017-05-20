@@ -16,8 +16,9 @@ $loader->addNamespace('app', APP_PATH);
 $loader->register();
 $whoops = new \Whoops\Run;
 $PrettyPageHandler = new \Whoops\Handler\PrettyPageHandler();
-// $PrettyPageHandler->setPageTitle('nihao');
+//$PrettyPageHandler->setPageTitle('zane');
 $whoops->pushHandler($PrettyPageHandler);
 $whoops->register();
-$URI = $_SERVER['REQUEST_URI'];
+
+\zane\Config::set(include APP_PATH.'config.php');
 \zane\App::run();
