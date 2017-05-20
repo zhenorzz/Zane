@@ -1,5 +1,6 @@
 <?php
 namespace zane;
+use zane\Config;
 /**
 *模板生成
 */
@@ -12,11 +13,13 @@ class Mongodb implements interfaces\Nosql
 	private $order;
 	private static $bulk = null;
 
-	public function __construct($db = null)
+	public function __construct($table = null)
 	{
-		$this->manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
-		if (isset($db)) {
-			$this->db = $db;
+		$mongodb = Config::get('mongodb');
+		$this->db = $mongodb['database'];
+		$this->manager = new \MongoDB\Driver\Manager("mongodb://".$mongodb['hostname'].':'.$mongodb['hostport']);
+		if (isset($table)) {
+			$this->table = $table;
 		}
 	}
 

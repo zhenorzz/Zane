@@ -10,7 +10,7 @@ class Config
 
 	public static function set($name)
 	{
-		self::$config += $name;
+		self::$config = array_merge(self::$config, array_change_key_case($name));
 		return;
 	}
 
