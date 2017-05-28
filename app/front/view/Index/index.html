@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>angular</title>
+	<script src="/static/angular/angular.min.js"></script>
 </head>
-<body>
-	{$data},{$person}
-	<ul> 
-		{foreach $b}
-			<li>{V}</li>
-		{/foreach}
-	</ul>
-	{if $data=='abc'}
-		我是abc
-	{elseif $data=='def'}
-		我是def
-	{else}
-		我就是我，{$data}
-	{/if}
-	{#注释不会出现在编译后的PHP代码中#}
-</body>
+	<body>
+		
+		<div ng-app="myApp" ng-controller="personCtrl">
+
+		名: <input type="text" ng-model="firstName"><br>
+		姓: <input type="text" ng-model="lastName"><br>
+		<br>
+		姓名: {{fullName()}}
+
+		</div>
+
+		<script>
+		var app = angular.module('myApp', []);
+		app.controller('personCtrl', function($scope) {
+		    $scope.firstName = "John";
+		    $scope.lastName = "Doe";
+		    $scope.fullName = function() {
+		        return $scope.firstName + " " + $scope.lastName;
+		    }
+		});
+		</script>
+
+   </body>
 </html>
