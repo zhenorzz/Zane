@@ -11,7 +11,7 @@ class App
 	{	
 		$URI = $_SERVER['REQUEST_URI'];
 		$file = explode('/', $URI);
-		$module = isset($file[1]) ? $file[1] : 'front';
+		$module = isset($file[1]) && !empty($file[1])? $file[1] : 'front';
 		$controller = isset($file[2]) ? $file[2] : 'Index';
 		$action = isset($file[3]) ? explode('.', $file[3])[0] : 'index';
 		define('MODULE',$module);

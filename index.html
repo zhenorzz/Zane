@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>angular</title>
-	<script src="/static/angular/angular.min.js"></script>
+	<script src="/public/static/angular/angular.min.js"></script>
 </head>
 	<body>
 		
@@ -19,18 +19,10 @@
 		<script>
 		var app = angular.module('myApp', []);
 		app.controller('siteCtrl', function($scope, $http) {
-			var postData={msg:'post的内容'};  
-		  $http({  
-
-		    method:'post',  
-
-		   	url:'/front/Index/test',  
-
-		    data:postData,
-
-		}).then(function (response) {
-		  	$scope.names = response.data.sites;
-		  });
+		  $http({
+			    method: 'GET',
+			    url:'/front/Index/test',
+			}).then(function (response) {$scope.names = response.data.sites;});
 		});
 		</script>
 
