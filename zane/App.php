@@ -7,13 +7,8 @@ namespace zane;
 class App
 {
 	
-	public function __construct()
-	{
-		
-	}
-
 	public static function run()
-	{
+	{	
 		$URI = $_SERVER['REQUEST_URI'];
 		$file = explode('/', $URI);
 		$module = isset($file[1]) ? $file[1] : 'front';
@@ -24,7 +19,7 @@ class App
 		define('ACTION',$action);
 		$class = '\\app\\' . $module . '\\controller\\' . $controller;
 		$view = new $class();
-		$view->$action();
+		return $view->$action();
 	}
 
 }

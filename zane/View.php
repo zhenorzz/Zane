@@ -3,7 +3,7 @@ namespace zane;
 /**
 *模板生成
 */
-class Template
+class View
 {
 	private $arrayConfig = [
 		'suffix' => '.html',
@@ -111,24 +111,18 @@ class Template
 		$cacheFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.html';
 		if ($this->reCache($file) === false) {
 			$this->compileTool = new Compile($this->path(), $compileFile, $this->arrayConfig);
-			if ($this->needCache()) {
-				ob_start();
-			}
 			extract($this->value);
 			
 			if (!is_file($compileFile) || filemtime($compileFile) < filemtime($this->path()) || $this->arrayConfig['debug']) {
 				$this->compileTool->value = $this->value;
-				$this->compileTool->compile();
-				include $compileFile;
+				$data = $this->compileTool->compile();
+				return Response::create($data, 'view');
 			} else {
-				include $compileFile;
-			}
-			if ($this->needCache()){
-				$message = ob_get_contents();
-				file_put_contents($cacheFile, $message);
+				return Response::create($data, 'view');
 			}
 		} else {
-			readfile($cacheFile);
+			$data = file_get_contents($compileFile);
+			return Response::create($data, 'view');
 		}
 	}
 

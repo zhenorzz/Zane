@@ -175,17 +175,23 @@ class Session
         self::$init = null;
     }
 
-    /**
-     * 销毁session
+   /**
+     * 清空当前请求的session数据
      * @return void
      */
-    public static function destroy()
+    public static function flush()
     {
-        if (!empty($_SESSION)) {
-            $_SESSION = [];
+        if (self::$init) {
+            $item = self::get('__flash__');
+
+            if (!empty($item)) {
+                $time = $item['__time__'];
+                if ($_SERVER['REQUEST_TIME_FLOAT'] > $time) {
+                    unset($item['__time__']);
+                    self::delete($item);
+                    self::set('__flash__', []);
+                }
+            }
         }
-        session_unset();
-        session_destroy();
-        self::$init = null;
     }
 }

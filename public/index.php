@@ -9,7 +9,6 @@ defined('ZANE_PATH') or define('ZANE_PATH', ROOT_PATH . 'zane' . DS);
 defined('VENDOR_PATH') or define('VENDOR_PATH', ROOT_PATH . 'vendor' . DS);
 defined('RUNTIME_PATH') or define('RUNTIME_PATH', ROOT_PATH . 'runtime' . DS);
 defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'cache' . DS);
-
 $loader = new \zane\Autoloader;
 $loader->addNamespace('zane', ZANE_PATH);
 $loader->addNamespace('app', APP_PATH);
@@ -21,4 +20,4 @@ $whoops->pushHandler($PrettyPageHandler);
 $whoops->register();
 
 \zane\Config::set(include APP_PATH.'config.php');
-\zane\App::run();
+\zane\App::run()->send();

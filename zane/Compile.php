@@ -53,6 +53,7 @@ class Compile
 		$this->c_var2();
 		$this->c_staticFile();
 		file_put_contents($this->comfile, $this->content);
+		return $this->content;
 	}
 
 	public function c_var2()
