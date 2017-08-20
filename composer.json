@@ -17,7 +17,8 @@
     "require": {
         "php": ">=5.6.0",
         "filp/whoops": "^2.1",
-        "monolog/monolog": "^1.22"
+        "monolog/monolog": "^1.22",
+        "phpunit/phpunit": "^5.7"
     },
     "config": {
         "preferred-install": "dist"
