@@ -19,7 +19,16 @@ class App
 		define('ACTION',$action);
 		$class = '\\app\\' . $module . '\\controller\\' . $controller;
 		$view = new $class();
-		return $view->$action();
+		$response = $view->$action();
+		if ($response instanceof Response) {
+		} elseif (is_string($response)) {
+			$response = Response::create($response, 'view');
+		} elseif (is_array($response)) {
+			$response = Response::create(print_r($response,true), 'view');
+		} else {
+			$response = Response::create('', 'view');
+		}
+		return $response;
 	}
 
 }
