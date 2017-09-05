@@ -15,16 +15,6 @@
 		</ul>
  
 		</div>
- 
-		<script>
-		var app = angular.module('myApp', []);
-		app.controller('siteCtrl', function($scope, $http) {
-		  $http({
-			    method: 'GET',
-			    url:'/front/Index/test',
-			}).then(function (response) {$scope.names = response.data.sites;});
-		});
-		</script>
 
    </body>
 </html>
