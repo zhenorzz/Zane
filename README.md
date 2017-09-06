@@ -30,18 +30,9 @@ www  WEB部署目录（或者子目录）
 │  └─.htaccess          用于apache的重写
 │
 ├─zane                  框架系统目录
-│  ├─lang               语言文件目录
-│  ├─library            框架类库目录
-│  │  ├─think           Think类库包目录
-│  │  └─traits          系统Trait目录
-│  │
-│  ├─tpl                系统模板目录
-│  ├─base.php           基础定义文件
-│  ├─console.php        控制台入口文件
-│  ├─convention.php     框架惯例配置文件
-│  ├─helper.php         助手函数文件
-│  ├─phpunit.xml        phpunit配置文件
-│  └─start.php          框架入口文件
+│  ├─interfaces         预定义接口目录
+│  ├─traits             系统Trait目录
+│  └─phpunit.xml        phpunit配置文件
 │
 ├─extend                扩展类库目录
 ├─runtime               应用的运行时目录（可写，可定制）
@@ -49,10 +40,6 @@ www  WEB部署目录（或者子目录）
 ├─composer.json         composer 定义文件
 ├─README.md             README 文件
 ~~~
-
-> router.php用于php自带webserver支持，可用于快速测试
-> 切换到public目录后，启动命令：php -S localhost:8888  router.php
-> 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
 
 ## 命名规范
 遵循PSR-2命名规范和PSR-4自动加载规范，并且注意如下规范：
