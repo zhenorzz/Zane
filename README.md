@@ -59,7 +59,7 @@ www  WEB部署目录（或者子目录）
 *   以双下划线“__”打头的函数或方法作为魔法方法，例如 `__call` 和 `__autoload`；
 
 ### 常量和配置
-*   常量以大写字母和下划线命名，例如 `APP_PATH`和 `THINK_PATH`；
+*   常量以大写字母和下划线命名，例如 `APP_PATH`和 `ZANE_PATH`；
 *   配置参数以小写字母和下划线命名，例如 `url_route_on` 和`url_convert`；
 
 ### 数据表和字段
