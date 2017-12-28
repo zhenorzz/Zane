@@ -17,8 +17,6 @@ class View
 		'debug' => true,
 	];
 
-	private static $instance = null;
-
 	private $value = [];
 
 	private $compileTool;
@@ -29,7 +27,12 @@ class View
 
 	private $controlData = [];
 
-	public function __construct(array $arrayConfig = [])
+    /**
+     * View constructor.
+     * @param array $arrayConfig
+     * @throws \Exception
+     */
+    public function __construct(array $arrayConfig = [])
 	{
 		$this->arrayConfig = $arrayConfig + $this->arrayConfig;
 		$this->arrayConfig['templateDir'] = APP_PATH . MODULE . '/view/' . CONTROLLER . DS;
@@ -39,14 +42,6 @@ class View
 		if (!is_dir($this->arrayConfig['compileDir'])) {
 			mkdir($this->arrayConfig['compileDir'], 0770, true);
 		}
-	}
-
-	public static function getInstance()
-	{
-		if (is_null(self::$instance)) {
-			self::$instance = new Template();
-		}
-		return self::$instance;
 	}
 
 	public function setConfig($key, $value = null)
@@ -97,7 +92,12 @@ class View
 		return $flag;
 	}
 
-	public function show($file = null)
+    /**
+     * @param null $file
+     * @return Response|response\View
+     * @throws \Exception
+     */
+    public function show($file = null)
 	{
 		if (isset($file)) {
 			$this->file = $file;
@@ -111,13 +111,13 @@ class View
 		$cacheFile = $this->arrayConfig['compileDir'] . '/' . md5($file) . '.html';
 		if ($this->reCache($file) === false) {
 			$this->compileTool = new Compile($this->path(), $compileFile, $this->arrayConfig);
-			extract($this->value);
-			
+//			extract($this->value);
 			if (!is_file($compileFile) || filemtime($compileFile) < filemtime($this->path()) || $this->arrayConfig['debug']) {
-				$this->compileTool->value = $this->value;
+//				$this->compileTool->value = $this->value;
 				$data = $this->compileTool->compile();
 				return Response::create($data, 'view');
 			} else {
+                $data = file_get_contents($compileFile);
 				return Response::create($data, 'view');
 			}
 		} else {

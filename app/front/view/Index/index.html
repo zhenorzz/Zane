@@ -69,11 +69,5 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-        var timestamp = Date.parse(new Date("2017/06/18"))/1000;
-        var utc = Date.UTC(2017,5,18,0,0,0)/1000;
-        var offset = new Date().getTimezoneOffset();
-        console.log(timestamp-offset*60,timestamp,utc, offset);    
-    </script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
 namespace zane;
-use zane\Config;
 /**
 *模板生成
 */

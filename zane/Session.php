@@ -8,7 +8,7 @@ class Session
 	protected static $prefix = '';
 	private static $init = null;
 
-	/**
+    /**
      * 设置或者获取session作用域（前缀）
      * @param string $prefix
      * @return string|void
@@ -19,13 +19,13 @@ class Session
             return self::$prefix;
         } else {
             self::$prefix = $prefix;
+            return;
         }
     }
 	/**
      * session初始化
      * @param array $config
      * @return void
-     * @throws \think\Exception
      */
     public static function init(array $config = [])
     {

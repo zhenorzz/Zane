@@ -11,11 +11,11 @@ class Compile
 	private $comfile;
 	private $left = '{';
 	private $right = '}';
-	private $value = [];
 	private $phpTurn;
 	private $T_P = [];
 	private $T_R = [];
-	public function __construct($template, $compileFile, $config)
+    public $value = [];
+    public function __construct($template, $compileFile, $config)
 	{
 		$this->template = $template;
 		$this->comfile = $compileFile;

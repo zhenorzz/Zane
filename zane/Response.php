@@ -74,7 +74,6 @@ class Response
     /**
      * 发送数据到客户端
      * @access public
-     * @return mixed
      * @throws \InvalidArgumentException
      */
     public function send()

@@ -39,7 +39,7 @@ class Request
      * 初始化
      * @access public
      * @param array $options 参数
-     * @return \think\Request
+     * @return Request
      */
     public static function instance($options = [])
     {

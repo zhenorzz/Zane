@@ -1,6 +1,5 @@
 <?php
 namespace zane;
-use zane\Response;
 /**
  *返回json
  */
